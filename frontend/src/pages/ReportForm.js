@@ -48,7 +48,7 @@ const ReportForm = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:5001/api'}/reports`,
+        `${process.env.REACT_APP_API_URL || '/api'}/reports`,
         formData,
         {
           headers: {
