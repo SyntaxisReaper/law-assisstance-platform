@@ -13,12 +13,8 @@ async function dbConnect() {
 
   try {
     const connection = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       bufferCommands: false,
       bufferMaxEntries: 0,
-      useFindAndModify: false,
-      useCreateIndex: true,
     });
 
     cachedConnection = connection;
