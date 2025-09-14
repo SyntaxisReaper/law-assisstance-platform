@@ -1,0 +1,19 @@
+{
+  "name": "law-assistance-platform",
+  "version": "1.0.0",
+  "description": "A comprehensive law assistance platform for emergency reporting and legal support",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "keywords": ["law", "emergency", "legal", "assistance", "platform"],
+  "author": "Law Assistance Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
