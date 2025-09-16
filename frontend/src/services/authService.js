@@ -1,85 +1,100 @@
-import axios from 'axios';
+// Mock auth service - bypasses network calls for demo purposes
 
-const API_URL = process.env.REACT_APP_API_URL || '/api';
+const generateToken = () => {
+  return 'mock-jwt-token-' + Math.random().toString(36).substr(2, 9);
+};
 
-// Create axios instance with default config
-const api = axios.create({
-  baseURL: API_URL,
-  timeout: 10000, // 10 second timeout
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-// Add request interceptor to include auth token
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-// Add response interceptor to handle auth errors
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      window.location.href = '/login';
-    }
-    
-    // Handle network errors
-    if (!error.response) {
-      error.message = 'Network error. Please check your connection and try again.';
-    }
-    
-    return Promise.reject(error);
-  }
-);
+const generateUserId = () => {
+  return 'user-' + Math.random().toString(36).substr(2, 9);
+};
 
 export const authService = {
   async login(email, password) {
-    try {
-      const response = await api.post('/auth/login', { email, password });
-      return response.data;
-    } catch (error) {
-      throw error.response?.data || error;
-    }
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Mock successful login
+    const token = generateToken();
+    const user = {
+      id: generateUserId(),
+      firstName: 'Demo',
+      lastName: 'User',
+      email: email,
+      phone: '+1234567890',
+      role: 'user'
+    };
+    
+    // Store token
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    
+    return {
+      message: 'Login successful',
+      token,
+      user
+    };
   },
 
   async register(userData) {
-    try {
-      const response = await api.post('/auth/register', userData);
-      return response.data;
-    } catch (error) {
-      console.error('Registration error:', error.response?.data?.message || error.message);
-      throw error.response?.data || { message: 'Network error. Please check your connection.' };
-    }
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Mock successful registration
+    const token = generateToken();
+    const user = {
+      id: generateUserId(),
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      phone: userData.phone,
+      role: 'user'
+    };
+    
+    // Store token
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    
+    return {
+      message: 'User registered successfully',
+      token,
+      user
+    };
   },
 
   async getCurrentUser() {
-    try {
-      const response = await api.get('/auth/me');
-      return response.data;
-    } catch (error) {
-      throw error.response?.data || error;
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 200));
+    
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    
+    if (!token || !user.id) {
+      throw new Error('No user found');
     }
+    
+    return { user };
   },
 
   async updateProfile(userData) {
-    try {
-      const response = await api.put('/auth/profile', userData);
-      return response.data;
-    } catch (error) {
-      throw error.response?.data || error;
-    }
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+    const updatedUser = { ...currentUser, ...userData };
+    
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+    
+    return {
+      message: 'Profile updated successfully',
+      user: updatedUser
+    };
   }
 };
 
-export default api;
+// Mock axios instance for compatibility
+export default {
+  get: () => Promise.resolve({ data: {} }),
+  post: () => Promise.resolve({ data: {} }),
+  put: () => Promise.resolve({ data: {} }),
+  delete: () => Promise.resolve({ data: {} })
+};
