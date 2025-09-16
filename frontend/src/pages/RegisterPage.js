@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Shield, User, Mail, Lock, Phone, AlertCircle } from 'lucide-react';
+import { Shield, AlertCircle } from 'lucide-react';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -51,7 +51,7 @@ const RegisterPage = () => {
         return;
       }
       
-      const result = await register(submitData);
+      await register(submitData);
       navigate('/dashboard');
     } catch (error) {
       console.error('Registration error:', error);

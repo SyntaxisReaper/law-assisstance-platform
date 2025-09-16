@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertTriangle, Phone, MessageSquare, Users } from 'lucide-react';
+import { AlertTriangle, Phone, MessageSquare } from 'lucide-react';
 
 const EmergencyPage = () => {
   const emergencyContacts = [
