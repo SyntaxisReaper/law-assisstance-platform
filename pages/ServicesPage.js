@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Phone, MapPin, Star } from 'lucide-react';
+import { Users, Phone, MapPin } from 'lucide-react';
 
 const ServicesPage = () => {
   const serviceTypes = [

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, FileText, Phone, Users, AlertTriangle, Clock, CheckCircle, Star } from 'lucide-react';
+import { Shield, FileText, Users, AlertTriangle, Clock, CheckCircle } from 'lucide-react';
 
 const LandingPage = () => {
   const features = [

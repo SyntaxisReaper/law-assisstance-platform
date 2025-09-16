@@ -92,9 +92,11 @@ export const authService = {
 };
 
 // Mock axios instance for compatibility
-export default {
+const mockApi = {
   get: () => Promise.resolve({ data: {} }),
   post: () => Promise.resolve({ data: {} }),
   put: () => Promise.resolve({ data: {} }),
   delete: () => Promise.resolve({ data: {} })
 };
+
+export default mockApi;

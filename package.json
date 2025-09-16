@@ -9,6 +9,7 @@
     "client": "cd frontend && npm start",
     "build": "cd frontend && npm install && npm run build",
     "vercel-build": "npm install && cd frontend && npm install && npm run build",
+    "build-vercel": "cd frontend && npm run build",
     "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install"
   },
   "keywords": ["law", "emergency", "legal", "assistance", "platform"],
